@@ -21,7 +21,6 @@ const OnsubmitHandler = (event)=>{
   let errorFlag = false;
   let flag = false;
   event.preventDefault();
-  console.log(getForm);
   if(getForm.name==="" || getForm.email==="" || getForm.phoneNumber==="" || getForm.password===""){
     setError("All fields are mandatory");
     errorFlag = true;
@@ -40,7 +39,6 @@ const OnsubmitHandler = (event)=>{
   if(errorFlag===false){
     setError("")
   }
-  console.log(errorFlag);
 }
 
   return (
