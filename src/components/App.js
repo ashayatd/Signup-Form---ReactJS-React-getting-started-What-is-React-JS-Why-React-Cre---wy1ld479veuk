@@ -2,6 +2,7 @@ import React, {Component, useState} from "react";
 import '../styles/App.css';
 
 const App = () => {
+const [getError, setError] = useState("") ;
 const [getForm, setForm] = useState({
   name:"",
   email:"",
@@ -17,20 +18,29 @@ setForm({
 })
 }
 const OnsubmitHandler = (event)=>{
+  let errorFlag = false;
   let flag = false;
   event.preventDefault();
   console.log(getForm);
   if(getForm.name==="" || getForm.email==="" || getForm.phoneNumber==="" || getForm.password===""){
-    console.log("All fields are mandatory");
+    setError("All fields are mandatory");
+    errorFlag = true;
   }
   for(let i=0; i<getForm.email.length ;i++){
     if(getForm.email[i]==="@"){
       flag=true;
     }
   }
-  if(flag===false){console.log("Email must contain @")}
-  if(getForm.gender===""){console.log("Please identify as male, female or others")}
-
+  if(flag===false){setError("Email must contain @") 
+  errorFlag=true}
+  if(getForm.gender===""){
+    setError("Please identify as male, female or others")
+    errorFlag = true;}
+  
+  if(errorFlag===false){
+    setError("")
+  }
+  console.log(errorFlag);
 }
 
   return (
@@ -57,7 +67,8 @@ const OnsubmitHandler = (event)=>{
       </div>
       <button data-testid = 'submit' onClick={OnsubmitHandler}>
         Submit
-      </button>
+      </button><br/>
+      {getError}
     </form>
     </>
   )
